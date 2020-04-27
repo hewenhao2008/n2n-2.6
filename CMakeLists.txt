@@ -7,7 +7,7 @@ set(N2N_VERSION 2.6.0)
 set(N2N_OSNAME ${CMAKE_SYSTEM})
 
 # N2n specific params
-OPTION(N2N_OPTION_AES "USE AES" ON)
+OPTION(N2N_OPTION_AES "USE AES" OFF)
 
 # Build information
 OPTION(BUILD_SHARED_LIBS "BUILD Shared Library" OFF)

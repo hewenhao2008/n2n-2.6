@@ -1,0 +1,55 @@
+1. 取消openssl支持：
+./CMakeLists.txt 中 OPTION(N2N_OPTION_AES "USE AES" ON)
+改为 OPTION(N2N_OPTION_AES "USE AES" OFF)
+
+
+2. LINUX编译：
+./autogen.sh
+./configure
+make && make install
+或
+mkdir build
+cd build
+cmake . ..
+make && make install
+
+
+4. linux交叉编译windows版：
+
+# 安装 mingw
+sudo apt-get install g++-mingw-w64 gcc-mingw-w64 mingw-w64
+# 编辑 cmake 文件，没有的话先新建
+vim ./cmake/CMakeToolchainFileMingw32.cmake
+# TOOD: do as above `Cross compiling on Linux for Win32`
+n2n_v2/cmake/CMakeToolchainFileMingw32.cmake content:
+
+# the name of the target operating system
+SET(CMAKE_SYSTEM_NAME Windows)
+
+# which compilers to use for C and C++
+# SET(CMAKE_C_COMPILER i686-mingw32-gcc)
+# SET(CMAKE_CXX_COMPILER i686-mingw32-g++)
+SET(CMAKE_C_COMPILER i686-w64-mingw32-gcc)
+SET(CMAKE_CXX_COMPILER i686-w64-mingw32-g++)
+SET(CMAKE_RC_COMPILER x86_64-w64-mingw32-windres)
+
+# here is the target environment located
+# SET(CMAKE_FIND_ROOT_PATH ${HOME}/win_n2n/mingw32/)
+SET(CMAKE_FIND_ROOT_PATH /usr/bin/)
+
+# adjust the default behaviour of the FIND_XXX() commands:
+# search headers and libraries in the target environment, search 
+# programs in the host environment
+set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+
+修改./edge_utils.c中 两处 u_int8_t 改为 uint8_t
+
+编译：
+mkdir build
+cd build 
+cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/CMakeToolchainFileMingw32.cmake --build ./ ../
+make
+ls 就能看到exe文件已经编译出来了
+

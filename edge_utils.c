@@ -962,7 +962,7 @@ static int handle_PACKET(n2n_edge_t * eee,
 	  /* Check if it is a routed packet */
 	  if((ntohs(eh->type) == 0x0800) && (eth_size >= ETH_FRAMESIZE + IP4_MIN_SIZE)) {
 	    uint32_t *dst = (uint32_t*)&eth_payload[ETH_FRAMESIZE + IP4_DSTOFFSET];
-	    u_int8_t *dst_mac = (u_int8_t*)eth_payload;
+	    uint8_t *dst_mac = (uint8_t*)eth_payload;
 
 	    /* Note: all elements of the_ip are in network order */
 	    if(!memcmp(dst_mac, broadcast_mac, 6))
