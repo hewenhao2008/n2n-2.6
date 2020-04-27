@@ -1,9 +1,9 @@
-#1. 取消openssl支持：
+# 1. 取消openssl支持：
 ./CMakeLists.txt 中 OPTION(N2N_OPTION_AES "USE AES" ON)
 改为 OPTION(N2N_OPTION_AES "USE AES" OFF)
 
 
-#2. LINUX编译：
+# 2. LINUX编译：
 ./autogen.sh
 ./configure
 make && make install
@@ -14,7 +14,7 @@ cmake . ..
 make && make install
 
 
-#3. linux交叉编译windows版：
+# 3. linux交叉编译windows版：
 
 # 安装 mingw
 sudo apt-get install g++-mingw-w64 gcc-mingw-w64 mingw-w64
@@ -43,12 +43,12 @@ set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
-修改./edge_utils.c中 两处 u_int8_t 改为 uint8_t
+# 修改./edge_utils.c中 两处 u_int8_t 改为 uint8_t
 
-编译：
+# 编译：
 mkdir build
 cd build 
 cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/CMakeToolchainFileMingw32.cmake --build ./ ../
 make
-ls 就能看到exe文件已经编译出来了
+# ls 就能看到exe文件已经编译出来了
 
